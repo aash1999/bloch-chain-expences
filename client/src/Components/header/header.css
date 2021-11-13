@@ -1,0 +1,20 @@
+.header-container{
+    width: 100vw;
+    height: 10vh;
+    /* background-color: black; */
+    text-align: right;
+}
+.header-heading{
+    /* color: rgba(255,255,255,0.98); */
+    color: #1abc9c;
+    font-size: 2rem;
+    margin-right: 25px;
+    margin-top:10px;
+}
+.header-subheading{
+    /* color: rgba(255,255,255,0.5); */
+    color: #7f7f7f;
+    /* color : black; */
+    font-size: 1.2rem;
+    margin-right: 19px;
+}

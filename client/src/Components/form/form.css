@@ -1,0 +1,139 @@
+.form-container{
+    
+    width: 48vw;
+    height: 78vh;
+    /* background-color: black; */
+    margin-top: 10px;
+    /* margin-left: 10px; */
+    /* margin-right: 8px; */
+    /* border-style: solid; */
+    border-width: 1px;
+    display: inline-block;
+    /* top: -20px; */
+    text-align: center;
+    /* padding : 10px; */
+
+}
+
+
+.card-header{
+    width: 100%;
+    height: 18vh;
+}
+
+.form-heading{
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 3vh;
+    color: #04C1B7;
+}
+.block-index{
+    text-align: center;
+    font-size: 1rem;
+}
+
+.previous-hash{
+    margin-top: 10px;
+    font-size: 1rem;
+}
+
+.hash{
+    font-size: 0.6rem;
+}
+
+.form-card{
+    text-align: center;
+    border-style: dotted;
+    border-width: 0.3px;
+    border-radius: 10px;
+    /* border-color: #6B6BF1; */
+    border-color: #13674F;
+    width: 50%;
+    margin: 0 auto;
+    padding : 10px;
+
+}
+
+.text-bottom{
+    margin-bottom: 5px;
+    /* background-color: black; */
+    /* color: black; */
+}
+textarea.form-control {
+    color: #63AEEB
+}
+.text-box{
+    /* background-color: #63AEEB; */
+    /* border-color:#63AEEB; */
+    /* background-color: #1e1e1e; */
+    background-color: #252525;
+    /*border-color: #1e1e1e; */
+    border : none;
+    resize: none;
+    color: blanchedalmond;
+    outline: none;
+    border-radius: 10px;
+    margin-top: 10px;
+
+    
+}
+.data{
+    /* padding : 10px; */
+    margin-bottom: 10px;
+    /* border-style: dotted; */
+    border-bottom: dotted;
+    border-width: 1px;
+}
+
+.mine-button{
+    margin-top: 15px;
+    width : 10vw;
+    height : 4vh;
+    background-color: #1e1e1e;
+    border : none;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #13674F;
+    color : #13674F;
+    border-radius: 4px;
+}
+
+.loading-flex{
+    display : flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+.mining-heading{
+    flex : 50%;
+    text-align: left;
+    font-size: 1.5rem;
+    padding: 0px;
+    margin: 0px;
+    /* width :  */
+}
+
+.progress-bar{
+    flex:50%;
+}
+
+.back-img{
+
+
+    background-image: url("../../images/blockchaingif.gif");
+    width : 50vw;
+    height : 50vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 37.5vh;
+    left : 42vw;
+    z-index: -1;
+  }
+
+  .loading-pos{
+      position: absolute;
+      top :40vh;
+      left : 42vw;
+
+  }

@@ -1,0 +1,9 @@
+.chainList-container{
+    width: 48vw;
+    height: 60vh;
+    margin-top: 10vh;
+    margin-left: 20px; 
+    border-width: 5px;
+    display: inline-block;
+    overflow: auto;
+}
