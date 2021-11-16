@@ -10,7 +10,11 @@ function Form(){
     var [blockIndex , setBlockIndex]= useState("");
     var [submited , setSubmitted] = useState(false);
     var [isMining , setIsMining ] = useState(false);
-    const [data, setData] = useState("");
+    const [disc, setDisc] = useState("");
+    const [amt, setAmt] = useState("");
+    const [paidChecked , setPaidChecked] = useState(true);
+    const [receivedChecked , setReceivedChecked] = useState(false);
+
 
     var nonce;
     var diffucuilty = 4;
@@ -42,11 +46,19 @@ function Form(){
     
     
     function MineBlock(){
+        var paid_data;
+        if(paidChecked == true){
+            paid_data = "true"
+        }else{
+            paid_data= "false"
+        }
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body:  new URLSearchParams({
-            'data': data,
+            'data': disc,
+            'paid' : paid_data,
+            'amount' : amt,
         }) 
         };
         fetch('http://127.0.0.1:5000/mineblock', requestOptions)
@@ -61,25 +73,62 @@ function Form(){
     }
     var [nonceCount ,setNonceCount]= useState(1);
 
-    if(isMining == false){
+    if(isMining == true){// after development turn it to false
        return(<div className = "form-container" >
                                 <form   id="new-block-mine"  onSubmit = {MineBlock}>
                                 <div className = "card-header"></div>
-                                <div className = "form-heading">New Block</div>
+                                <div className = "form-heading">New Payment</div>
                                 <div className = "form-card" >
                                     {/* <div className = "block-index">Index : {blockIndex}</div> */}
                                     {/* <div className = "previous-hash">Previous Block<span><p className = "hash">{previousHash}</p></span></div> */}
-                                    <label className="data">Data</label><br></br>
-                                    <textarea 
-                                            className="text-box"
-                                            name="message" 
-                                            rows="10" 
+                                    <div className ="amount">Amount : </div><textarea 
+                                            className="amount-box"
+                                            name="amount" 
+                                            rows="1" 
                                             cols="30"
                                             autoCorrect="off"
                                             spellCheck= "false"
                                             maxLength ="100"
-                                            value = {data}
-                                            onChange = {(e)=>setData(e.target.value)}
+                                            value = {amt}
+                                            onChange = {(e)=>setAmt(e.target.value)}
+                                    ></textarea><br></br>
+
+                                    <input 
+                                        checked={paidChecked} 
+                                        onChange = {()=>{
+                                            setPaidChecked(!paidChecked);
+                                            setReceivedChecked(!receivedChecked);
+                                        }}
+                                        type="checkbox" 
+                                        id="paid" 
+                                        name="paid" 
+                                        value="paid"/>
+                                    <label for="paid">Paid</label><br></br>
+                                    
+                                    <input 
+                                        checked={receivedChecked}
+                                        onChange ={()=>{
+                                            setPaidChecked(!paidChecked);
+                                            setReceivedChecked(!receivedChecked);
+                                        }}
+                                        type="checkbox" 
+                                        id="received" 
+                                        name="received" 
+                                        value="received"/>
+                                    <label for="received">Received</label><br></br>
+                                    
+
+                                    <label className="data">Description</label><br></br>
+                                    <textarea 
+                                            className="text-box"
+                                            name="message" 
+                                            rows="2" 
+                                            cols="30"
+                                            autoCorrect="off"
+                                            spellCheck= "false"
+                                            maxLength ="60"
+                                            value = {disc}
+                                            onChange = {(e)=>setDisc(e.target.value)}
                                     ></textarea>
                                     <div className= "text-bottom"></div>
                                     <br></br>

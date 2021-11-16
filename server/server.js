@@ -1,5 +1,6 @@
 //const bodyParser = require("body-parser");
 const { response } = require("express");
+const path = require('path');
 const express = require("express");
 const cors=require("cors");
 
@@ -32,22 +33,34 @@ var blockchain = new blockchainFile.Blockchain();
 
 app.post("/mineblock", (req,res)=>{
 
-    var previous_block =  blockchain.chain.slice(-1)[0];
-    var previous_hash =  blockchain.hash(previous_block)
-    var data  = req.body.data;
-    console.log(req.body.data)
-    var date =new Date();
-    date = date.toString();
-    var block  = {
-      index : blockchain.chain.length +1,
-      timestamp : date,
-      nonce : 1,
-      previous_hash : previous_hash,
-      data : data
-    }
-    block.nonce  = blockchain.proof_of_work(block);
-    blockchain.create_block(block.previous_hash  , block.nonce , block.index  , block.data ,block.timestamp );
-    res.send(block);
+  var paid = req.body.paid;
+  var amount = req.body.amount;
+  if(paid === "true"){
+    blockchain.total =blockchain.total  + parseFloat(amount);
+    blockchain.paidAmount = blockchain.paidAmount+ parseFloat(amount) 
+  }else if(paid === "false"){
+    blockchain.total =blockchain.total- parseFloat(amount);
+    blockchain.receivedAmount =blockchain.receivedAmount+ parseFloat(amount);
+  }
+  
+  var data  = req.body.data;
+  var previous_block =  blockchain.chain.slice(-1)[0];
+  var previous_hash =  blockchain.hash(previous_block);
+  console.log(req.body.data)
+  var date =new Date();
+  date = date.toString();
+  var block  = {
+    index : blockchain.chain.length +1,
+    timestamp : date,
+    nonce : 1,
+    previous_hash : previous_hash,
+    data : data,
+    paid : paid,
+    amount : amount
+  }
+  block.nonce  = blockchain.proof_of_work(block);
+  blockchain.create_block(block.previous_hash  , block.nonce , block.index  , block.data ,block.timestamp , paid , amount);
+  res.send(block);
 
 
 })
@@ -74,12 +87,14 @@ app.get("/setDifficulty",(req,res)=>{
 
 })
 
-app.post("/getPreviousBlock",(req,res)=>{
+app.post("/getSummary",(req,res)=>{
   console.log("/getPreviousBlock Called")
   var response = {
     hash : blockchain.hash(blockchain.chain.slice(-1)[0]),
     blockIndex : blockchain.chain.slice(-1)[0].index +1 ,
-
+    paid : blockchain.paidAmount,
+    received : blockchain.receivedAmount,
+    total : blockchain.total,
   }
   res.send(response);
 
