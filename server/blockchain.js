@@ -17,7 +17,7 @@ class Blockchain{
             timestamp:date,
             nonce:0,
             previous_hash:'0',
-            paid : "true",
+            paid : "false",
             amount : 0,
             data:"Genesis Block , Created By Aakash Singh",
 

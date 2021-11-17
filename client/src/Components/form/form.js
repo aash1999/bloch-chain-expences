@@ -14,6 +14,10 @@ function Form(){
     const [amt, setAmt] = useState("");
     const [paidChecked , setPaidChecked] = useState(true);
     const [receivedChecked , setReceivedChecked] = useState(false);
+    const [totalPaid,setTotalPaid] = useState(0);
+    const [totalReceived,setTotalReceived] = useState(0);
+    const [totalExpences,setTotalExpences] = useState(0);
+
 
 
     var nonce;
@@ -26,11 +30,14 @@ function Form(){
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             };
-            fetch('http://127.0.0.1:5000/getPreviousBlock', requestOptions1)
+            fetch('http://127.0.0.1:5000/getSummary', requestOptions1)
                 .then(response => response.json(),err => console.log('TCL : err',err))
                 .then((data)=>{ 
                     setPreviousHash(data.hash);
                     setBlockIndex(data.blockIndex);
+                    setTotalPaid(data.paid);
+                    setTotalReceived(data.received);
+                    setTotalExpences(data.total);
                     setSubmitted(true);
                     setIsMining(false);
                 //alert(data);
@@ -73,19 +80,34 @@ function Form(){
     }
     var [nonceCount ,setNonceCount]= useState(1);
 
-    if(isMining == true){// after development turn it to false
+    if(isMining == false){// after development turn it to false
        return(<div className = "form-container" >
                                 <form   id="new-block-mine"  onSubmit = {MineBlock}>
-                                <div className = "card-header"></div>
+                                <div className = "card-header">
+                                    <div className= "payment-box payment-paid">
+                                        <div>Spent</div>
+                                        <div>{totalPaid}</div>
+
+                                    </div>
+                                    <div className= "payment-box payment-received">
+                                    <div>Settled Up</div>
+                                    <div>{totalReceived}</div>
+                                    </div>
+                                    <div className= "payment-box total-exp">
+                                    <div>Out Standing</div>
+                                    <div>{totalExpences}</div>
+                                    </div>
+                                </div>
                                 <div className = "form-heading">New Payment</div>
                                 <div className = "form-card" >
                                     {/* <div className = "block-index">Index : {blockIndex}</div> */}
                                     {/* <div className = "previous-hash">Previous Block<span><p className = "hash">{previousHash}</p></span></div> */}
-                                    <div className ="amount">Amount : </div><textarea 
-                                            className="amount-box"
+                                    <div className ="amount">Amount :</div><textarea 
+                                            className="text-box amount-textbox"
                                             name="amount" 
                                             rows="1" 
-                                            cols="30"
+                                            cols="8"
+                                            maxlength="8"
                                             autoCorrect="off"
                                             spellCheck= "false"
                                             maxLength ="100"
@@ -93,29 +115,37 @@ function Form(){
                                             onChange = {(e)=>setAmt(e.target.value)}
                                     ></textarea><br></br>
 
-                                    <input 
-                                        checked={paidChecked} 
-                                        onChange = {()=>{
-                                            setPaidChecked(!paidChecked);
-                                            setReceivedChecked(!receivedChecked);
-                                        }}
-                                        type="checkbox" 
-                                        id="paid" 
-                                        name="paid" 
-                                        value="paid"/>
-                                    <label for="paid">Paid</label><br></br>
-                                    
-                                    <input 
-                                        checked={receivedChecked}
-                                        onChange ={()=>{
-                                            setPaidChecked(!paidChecked);
-                                            setReceivedChecked(!receivedChecked);
-                                        }}
-                                        type="checkbox" 
-                                        id="received" 
-                                        name="received" 
-                                        value="received"/>
-                                    <label for="received">Received</label><br></br>
+                                    <div className="paid-container">
+                                        <input 
+                                            // className= "payment-checkbox"
+                                            checked={paidChecked} 
+                                            onChange = {()=>{
+                                                setPaidChecked(!paidChecked);
+                                                setReceivedChecked(!receivedChecked);
+                                            }}
+                                            type="checkbox" 
+                                            id="paid" 
+                                            name="paid" 
+                                            value="paid"/>
+                                        <span className= "payment-checkbox"></span>
+                                        <label for="paid">Spent</label><br></br>
+                                        
+                                        <input 
+                                            className= "payment-checkbox"
+                                            checked={receivedChecked}
+                                            onChange ={()=>{
+                                                setPaidChecked(!paidChecked);
+                                                setReceivedChecked(!receivedChecked);
+                                            }}
+                                            type="checkbox" 
+                                            id="received" 
+                                            name="received" 
+                                            value="received"/>
+                                        <label for="received">Settled</label><br></br>
+                                        
+
+                                    </div>
+
                                     
 
                                     <label className="data">Description</label><br></br>
@@ -126,7 +156,7 @@ function Form(){
                                             cols="30"
                                             autoCorrect="off"
                                             spellCheck= "false"
-                                            maxLength ="60"
+                                            maxlength ="60"
                                             value = {disc}
                                             onChange = {(e)=>setDisc(e.target.value)}
                                     ></textarea>
