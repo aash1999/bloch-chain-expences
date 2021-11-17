@@ -18,4 +18,4 @@ A simple website designed to Manage Credit Card Expenses implemented using Block
 
 ### Sneak Peak
 
-![plot](./readme-images/load.png)
+![plot](./readme-images/preview.png)
