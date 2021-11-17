@@ -1,7 +1,7 @@
 # Blockchain Visualization 
 ```using React.js and Node.js```
 
-A simple website is designed to show how block chain works in general.
+A simple website designed to Manage Credit Card Expenses implemented using Block chain technology.
 
 ## For Developers
 - clone this repo
@@ -14,7 +14,7 @@ A simple website is designed to show how block chain works in general.
 ```/mineblock```
 ```/getchain```
 ```/setDifficulty```
-```/getPreviousBlock```
+```/getSummary```
 
 ### Sneak Peak
 
